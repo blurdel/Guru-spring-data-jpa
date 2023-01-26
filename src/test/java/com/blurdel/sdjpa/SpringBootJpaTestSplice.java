@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.Commit;
 
 import com.blurdel.sdjpa.domain.Book;
@@ -17,6 +18,7 @@ import com.blurdel.sdjpa.repositories.BookRepository;
 //Brings up Hibernate with H2 database auto configured
 @DataJpaTest // Spring- Brings up minimal context for testing Spring data repositories (no Bootstrap (data-initializer), Web, JMS messaging)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ComponentScan(basePackages = {"com.blurdel.sdjpa.bootstrap"}) // Can force Bootstrap (data-initializer) with this
 public class SpringBootJpaTestSplice {
 
 	@Autowired
@@ -28,7 +30,7 @@ public class SpringBootJpaTestSplice {
 	@Test
 	void testJpaSplice() {
 		long countBefore = bookRepository.count();
-		assertThat(countBefore).isEqualTo(0);
+		assertThat(countBefore).isEqualTo(2);
 		
 		bookRepository.save(new Book("My Book", "1235555", "Self"));
 		
@@ -41,7 +43,7 @@ public class SpringBootJpaTestSplice {
 	@Test
 	void testJpaSpliceTransaction() {
 		long countBefore = bookRepository.count();
-		assertThat(countBefore).isEqualTo(1);
+		assertThat(countBefore).isEqualTo(3);
 	}
 	
 }
