@@ -8,7 +8,7 @@ import com.blurdel.sdjpa.domain.Book;
 import com.blurdel.sdjpa.repositories.BookRepository;
 
 
-@Profile({"local", "default"})
+@Profile({"mysql", "default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -25,10 +25,10 @@ public class DataInitializer implements CommandLineRunner {
 
 		bookRepository.deleteAll();
 		
-		Book bookDDD = new Book("Data Driven Design", "123", "Randomware");
+		Book bookDDD = new Book("Data Driven Design", "123", "Randomware", null);
 		Book savedDDD = bookRepository.save(bookDDD);
 		
-		Book bookSIA = new Book("Spring In Action", "234234", "O'Reilly");
+		Book bookSIA = new Book("Spring In Action", "234234", "O'Reilly", null);
 		Book savedSIA = bookRepository.save(bookSIA);
 		
 		bookRepository.findAll().forEach(book -> {

@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.blurdel.sdjpa.repositories.BookRepository;
 
 
-@ActiveProfiles("local")
+@ActiveProfiles("mysql")
 @DataJpaTest // Spring- Wires in H2 in-memory database
 @ComponentScan(basePackages = {"com.blurdel.sdjpa.bootstrap"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // @DataJpaTest - Spring Boot still configures H2 database, tell it dont override MySql
