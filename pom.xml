@@ -56,6 +56,21 @@
 		</dependency>
 	</dependencies>
 
+
+<!-- Video 37- Add a profile to use H2 without the "local" profile specified. Set "h2" in Project Properties|maven -->
+	<profiles>
+		<profile>
+			<id>h2</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>	
+	</profiles>
+
+
 	<build>
 		<plugins>
 			<plugin>
