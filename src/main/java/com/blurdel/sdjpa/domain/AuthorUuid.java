@@ -1,26 +1,32 @@
 package com.blurdel.sdjpa.domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
+import org.hibernate.annotations.Type;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Author {
+public class AuthorUuid {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Type(type = "org.hibernate.type.UUIDCharType")
+	@Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+	private UUID id;
 	
 	private String firstName;
 	private String lastName;
 	
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -53,7 +59,7 @@ public class Author {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Author other = (Author) obj;
+		AuthorUuid other = (AuthorUuid) obj;
 		return Objects.equals(id, other.id);
 	}	
 	

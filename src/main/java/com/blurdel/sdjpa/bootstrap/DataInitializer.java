@@ -4,7 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import com.blurdel.sdjpa.domain.AuthorUuid;
 import com.blurdel.sdjpa.domain.Book;
+import com.blurdel.sdjpa.repositories.AuthorUuidRepository;
 import com.blurdel.sdjpa.repositories.BookRepository;
 
 
@@ -13,10 +15,12 @@ import com.blurdel.sdjpa.repositories.BookRepository;
 public class DataInitializer implements CommandLineRunner {
 
 	private final BookRepository bookRepository;
+	private final AuthorUuidRepository authorUuidRepository;
 	
 	
-	public DataInitializer(BookRepository bookRepository) {
+	public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
 		this.bookRepository = bookRepository;
+		this.authorUuidRepository = authorUuidRepository;
 	}
 
 
@@ -36,6 +40,11 @@ public class DataInitializer implements CommandLineRunner {
 			System.out.println("title: " + book.getTitle());
 		});
 		
+		AuthorUuid authorUuid = new AuthorUuid();
+		authorUuid.setFirstName("Joe");
+		authorUuid.setLastName("Buck");
+		AuthorUuid savedAuthor = authorUuidRepository.save(authorUuid);
+		System.out.println("Saved UUID:" + savedAuthor.getId());
 	}
 
 }

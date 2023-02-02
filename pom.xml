@@ -40,7 +40,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
+<!-- Database migration tool
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+-->
 		<!-- Dev Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
