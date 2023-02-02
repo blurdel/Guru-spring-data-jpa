@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.blurdel.sdjpa.domain.AuthorUuid;
 import com.blurdel.sdjpa.domain.Book;
+import com.blurdel.sdjpa.domain.BookUuid;
 import com.blurdel.sdjpa.repositories.AuthorUuidRepository;
 import com.blurdel.sdjpa.repositories.BookRepository;
+import com.blurdel.sdjpa.repositories.BookUuidRepository;
 
 
 @Profile({"mysql", "default"})
@@ -16,11 +18,13 @@ public class DataInitializer implements CommandLineRunner {
 
 	private final BookRepository bookRepository;
 	private final AuthorUuidRepository authorUuidRepository;
+	private final BookUuidRepository bookUuidRepository;
 	
 	
-	public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
+	public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository, BookUuidRepository bookUuidRepository) {
 		this.bookRepository = bookRepository;
 		this.authorUuidRepository = authorUuidRepository;
+		this.bookUuidRepository = bookUuidRepository;
 	}
 
 
@@ -44,7 +48,12 @@ public class DataInitializer implements CommandLineRunner {
 		authorUuid.setFirstName("Joe");
 		authorUuid.setLastName("Buck");
 		AuthorUuid savedAuthor = authorUuidRepository.save(authorUuid);
-		System.out.println("Saved UUID:" + savedAuthor.getId());
+		System.out.println("Saved Author UUID:" + savedAuthor.getId());
+		
+		BookUuid bookUuid = new BookUuid();
+		bookUuid.setTitle("All About UUIDs");
+		BookUuid savedBookUuid =  bookUuidRepository.save(bookUuid);
+		System.out.println("Saved Book UUID:" + savedBookUuid.getId());
 	}
 
 }
