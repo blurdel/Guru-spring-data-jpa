@@ -3,8 +3,14 @@ package com.blurdel.sdjpa.domain.composite;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Embeddable;
+
+
+@Embeddable
 public class NameId implements Serializable {
 
+	private static final long serialVersionUID = -7485328751067644849L;
+	
 	private String firstName;
 	private String lastName;
 	

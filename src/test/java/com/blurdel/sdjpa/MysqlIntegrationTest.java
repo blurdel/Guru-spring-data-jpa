@@ -12,8 +12,10 @@ import org.springframework.test.context.ActiveProfiles;
 import com.blurdel.sdjpa.domain.AuthorUuid;
 import com.blurdel.sdjpa.domain.BookUuid;
 import com.blurdel.sdjpa.domain.composite.AuthorComposite;
+import com.blurdel.sdjpa.domain.composite.AuthorEmbedded;
 import com.blurdel.sdjpa.domain.composite.NameId;
 import com.blurdel.sdjpa.repositories.AuthorCompositeRepository;
+import com.blurdel.sdjpa.repositories.AuthorEmbeddedRepository;
 import com.blurdel.sdjpa.repositories.AuthorUuidRepository;
 import com.blurdel.sdjpa.repositories.BookRepository;
 import com.blurdel.sdjpa.repositories.BookUuidRepository;
@@ -37,6 +39,23 @@ public class MysqlIntegrationTest {
 	@Autowired
 	AuthorCompositeRepository authorCompositeRepository;
 	
+	@Autowired
+	AuthorEmbeddedRepository authorEmbeddedRepository;
+	
+	
+	@Test
+	void testAuthorEmbedded() {
+		NameId nameId = new NameId("John", "T");
+		AuthorEmbedded authorEmbedded = new AuthorEmbedded(nameId);
+		
+		AuthorEmbedded saved = authorEmbeddedRepository.save(authorEmbedded);
+		assertThat(saved).isNotNull();
+		
+		AuthorEmbedded fetched = authorEmbeddedRepository.getById(nameId);
+		assertThat(fetched).isNotNull();
+		
+		assertThat(fetched.getNameid()).isEqualTo(nameId);
+	}
 	
 	@Test
 	void testAuthorComposite() {
